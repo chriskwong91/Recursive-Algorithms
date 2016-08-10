@@ -21,9 +21,16 @@
 // countVowels('abcedfg') ->2
 
 var countVowels = function(str){
+    var count = 0;
 
+    if (str.length > 1) {
+      count = countVowels(str.substring(1));
+    }
+
+    return count + /[aeiou]/.test(str[0]);
 };
 
+console.assert(countVowels('abcedfg') === 2, 'should count the vowels of a string');
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
@@ -33,10 +40,26 @@ var countVowels = function(str){
 // sumDigits(126) → 9
 // sumDigits(49) → 13
 // sumDigits(12) → 3
+// I : number
+// O : number, sum
+// C: non-negative input, no loops
+// E: none
+
 
 var recursiveSum = function(n){
+  //
+  var sum = 0;
 
+  if (n.toString().length > 1) {
+    sum = recursiveSum(+n.toString().substring(1));
+  }
+
+  return sum + +n.toString()[0];
 };
+
+console.assert(recursiveSum(126) === 9, 'expect recursiveSum to return the sum of its digits');
+console.assert(recursiveSum(49 ) === 13, 'expect recursiveSum to return the sum of its digits');
+console.assert(recursiveSum(12) === 3, 'expect recursiveSum to return the sum of its digits');
 
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
@@ -48,8 +71,21 @@ var recursiveSum = function(n){
 // PowerOfTwo(9) -> false
 
 var isPowerOfTwo = function(n){
+  var remainder = n / 2
 
+  if (remainder % 2 === 1){
+    return true;
+  } else if (remainder % 1 !== 0) {
+    return false;
+  } else {
+    remainder = isPowerOfTwo(remainder);
+  }
+
+  return remainder;
 };
+
+console.assert(isPowerOfTwo(8) === true, 'expect power of two of 8 to equal true');
+console.assert(isPowerOfTwo(9) === false, 'expect is power of two of 9 to equal false');
 
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
